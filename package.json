@@ -1,0 +1,66 @@
+{
+  "name": "underarmoursearch",
+  "version": "0.1.0",
+  "description": "JS Ajax search for Under Armour's multi-site blogs",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "search",
+    "under-armour"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "dependencies": {
+    "acorn": "^5.0.3",
+    "babel-plugin-inline-react-svg": "^0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7",
+    "dotenv": "^4.0.0",
+    "es6-promise": "^4",
+    "form-serialize": "^0.7.2",
+    "fuse.js": "^3.2.0",
+    "lodash": "^4",
+    "node-pre-gyp": "^0.6.36",
+    "node-sass": "^4",
+    "outpipe": "^1.1.1",
+    "prop-types": "^15",
+    "raf": "^3.3.2",
+    "react": "^15",
+    "react-dom": "^15.5.4",
+    "rx": "^4.1.0",
+    "styled-components": "^3.2.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6",
+    "babel-eslint": "^7.2.3",
+    "browserify": "^14",
+    "eslint": "^3",
+    "eslint-config-airbnb": "^14",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-jsx-a11y": "^4",
+    "eslint-plugin-react": "^6",
+    "livereload": "^0.6.2",
+    "parallelshell": "^3.0.1",
+    "uglifyify": "^4.0.1",
+    "watch": "^1",
+    "watchify": "^3"
+  },
+  "scripts": {
+    "test": "eslint .",
+    "dev": "parallelshell \"yarn livereload\" \"yarn watch:css\" \"yarn watch:js\"",
+    "js": "browserify -t babelify -t uglifyify assets/js/main.js -o assets/js/dist/main.js",
+    "watch:js": "watchify assets/js/main.js -t babelify -o assets/js/dist/main.js -v",
+    "css": "node-sass --include-path css --output-style compressed assets/css/main.scss assets/css/dist/main.css",
+    "watch:css": "node-sass --include-path css --output-style compressed assets/css/main.scss assets/css/dist/main.css --w",
+    "livereload": "livereload . -p 9091 -d"
+  }
+}
