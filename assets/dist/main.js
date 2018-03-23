@@ -30,9 +30,11 @@ var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiter
 
 var _taggedTemplateLiteral3 = _interopRequireDefault(_taggedTemplateLiteral2);
 
-var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  display: flex;\n  width: 100%;\n  align-items: center;\n\n  &:hover {\n    background-color: #0070bf;\n    color: #FFF;\n  }\n'], ['\n  display: flex;\n  width: 100%;\n  align-items: center;\n\n  &:hover {\n    background-color: #0070bf;\n    color: #FFF;\n  }\n']),
-    _templateObject2 = (0, _taggedTemplateLiteral3.default)(['\n'], ['\n']),
-    _templateObject3 = (0, _taggedTemplateLiteral3.default)(['\n  padding: 20px;\n'], ['\n  padding: 20px;\n']);
+var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  display: flex;\n  width: 100%;\n  align-items: center;\n\n  &:hover {\n    background-color: #0070bf;\n    color: #FFF;\n\n    div {\n      color: #FFF;\n    }\n  }\n'], ['\n  display: flex;\n  width: 100%;\n  align-items: center;\n\n  &:hover {\n    background-color: #0070bf;\n    color: #FFF;\n\n    div {\n      color: #FFF;\n    }\n  }\n']),
+    _templateObject2 = (0, _taggedTemplateLiteral3.default)(['\n    display: block;\n    width: 80px !important;\n    height: 80px !important;\n    position: relative;\n\n    img {\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      width: 100% !important;\n      height: 100% !important;\n    }\n'], ['\n    display: block;\n    width: 80px !important;\n    height: 80px !important;\n    position: relative;\n\n    img {\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      width: 100% !important;\n      height: 100% !important;\n    }\n']),
+    _templateObject3 = (0, _taggedTemplateLiteral3.default)(['\n  padding: 0 20px;\n  width: 80%;\n'], ['\n  padding: 0 20px;\n  width: 80%;\n']),
+    _templateObject4 = (0, _taggedTemplateLiteral3.default)(['\n  font-size: 16px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n  text-transform: uppercase;\n  color: #000;\n  margin: 0 0 3px 0;\n'], ['\n  font-size: 16px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n  text-transform: uppercase;\n  color: #000;\n  margin: 0 0 3px 0;\n']),
+    _templateObject5 = (0, _taggedTemplateLiteral3.default)(['\n  text-transform: uppercase;\n  color: #acacac;\n  font-size: 11px;\n  margin: 0;\n'], ['\n  text-transform: uppercase;\n  color: #acacac;\n  font-size: 11px;\n  margin: 0;\n']);
 
 var _react = require('react');
 
@@ -50,13 +52,24 @@ var Link = _styledComponents2.default.a(_templateObject);
 
 var PostCover = _styledComponents2.default.div(_templateObject2);
 var PostRight = _styledComponents2.default.div(_templateObject3);
+var Title = _styledComponents2.default.div(_templateObject4);
+
+var DateWrap = _styledComponents2.default.div(_templateObject5);
+var MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 var Article = function (_Component) {
   (0, _inherits3.default)(Article, _Component);
 
   function Article(props) {
     (0, _classCallCheck3.default)(this, Article);
-    return (0, _possibleConstructorReturn3.default)(this, (Article.__proto__ || (0, _getPrototypeOf2.default)(Article)).call(this, props));
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Article.__proto__ || (0, _getPrototypeOf2.default)(Article)).call(this, props));
+
+    _this.date = new Date(_this.props.article.date);
+    _this.month = MONTH_NAMES[_this.date.getMonth()];
+    _this.day = _this.date.getDate();
+    _this.year = _this.date.getFullYear();
+    return _this;
   }
 
   (0, _createClass3.default)(Article, [{
@@ -71,24 +84,20 @@ var Article = function (_Component) {
           _react2.default.createElement(
             PostCover,
             null,
-            _react2.default.createElement('img', {
-              src: this.props.article._embedded['wp:featuredmedia'][0].source_url,
-              width: '80', height: '80', scale: '0'
-            })
+            _react2.default.createElement('img', { src: this.props.article._embedded['wp:featuredmedia'][0].source_url })
           ),
           _react2.default.createElement(
             PostRight,
             null,
+            _react2.default.createElement(Title, { dangerouslySetInnerHTML: { __html: this.props.article.title.rendered } }),
             _react2.default.createElement(
-              'span',
-              { className: 'sf_text' },
-              this.props.article.title.rendered
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'span',
-              { className: 'sf_small' },
-              new Date(this.props.article.date).toLocaleDateString()
+              DateWrap,
+              null,
+              this.month,
+              ' ',
+              this.day,
+              ', ',
+              this.year
             )
           )
         )
@@ -140,11 +149,21 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiteral');
+
+var _taggedTemplateLiteral3 = _interopRequireDefault(_taggedTemplateLiteral2);
+
+var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  background-color: #0070bf;\n  padding: 20px 0;\n  align-items: center;\n  justify-content: center;\n'], ['\n  background-color: #0070bf;\n  padding: 20px 0;\n  align-items: center;\n  justify-content: center;\n']);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
+
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _fuse = require('fuse.js');
 
@@ -156,7 +175,7 @@ var _results2 = _interopRequireDefault(_results);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var API = 'http://mfpstaging3.wpengine.com/wp-json/wp/v2/posts';
+var API = 'http://mfpstaging3.wpengine.com/wp-json/wp/v2/';
 
 var opts = {
   shouldSort: true,
@@ -168,6 +187,8 @@ var opts = {
   keys: ["title.rendered"]
 };
 
+var Loading = _styledComponents2.default.div(_templateObject);
+
 var Search = function (_Component) {
   (0, _inherits3.default)(Search, _Component);
 
@@ -178,6 +199,8 @@ var Search = function (_Component) {
 
     _this.state = {
       allResults: [],
+      allVideoResults: [],
+      videoResults: [],
       results: [],
       value: ''
     };
@@ -190,22 +213,27 @@ var Search = function (_Component) {
     key: 'handleChange',
     value: function () {
       var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(e) {
-        var value, fuse, results;
+        var value, fuse, fuseVideo, results, videoResults;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 e.preventDefault();
+                document.getElementById('searchContainer').classList.add('loading');
                 value = e.target.value;
+
 
                 this.setState({ value: value });
 
                 fuse = new _fuse2.default(this.state.allResults, opts);
+                fuseVideo = new _fuse2.default(this.state.allVideoResults, opts);
                 results = fuse.search(value);
+                videoResults = fuseVideo.search(value);
 
-                this.setState({ results: results });
+                this.setState({ results: results, videoResults: videoResults });
+                document.getElementById('searchContainer').classList.remove('loading');
 
-              case 6:
+              case 10:
               case 'end':
                 return _context.stop();
             }
@@ -223,20 +251,25 @@ var Search = function (_Component) {
     key: 'componentWillMount',
     value: function () {
       var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-        var allResults;
+        var allResults, allVideoResults;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.fetchPosts('per_page=100');
+                return this.fetchPosts('posts?per_page=100');
 
               case 2:
                 allResults = _context2.sent;
+                _context2.next = 5;
+                return this.fetchPosts('video_hub?per_page=100');
 
-                this.setState({ allResults: allResults });
+              case 5:
+                allVideoResults = _context2.sent;
 
-              case 4:
+                this.setState({ allResults: allResults, allVideoResults: allVideoResults });
+
+              case 7:
               case 'end':
                 return _context2.stop();
             }
@@ -259,7 +292,7 @@ var Search = function (_Component) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                url = API + '?' + query + '&_embed';
+                url = API + query + '&_embed';
                 _context3.next = 3;
                 return fetch(url).then(function (response) {
                   if (response.ok) {
@@ -295,7 +328,7 @@ var Search = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'searchContainer' },
         _react2.default.createElement(
           'form',
           {
@@ -303,8 +336,7 @@ var Search = function (_Component) {
             method: 'get',
             id: 'searchform',
             className: 'searchform',
-            action: 'javascript:;',
-            onSubmit: this.handleChange
+            action: '/'
           },
           _react2.default.createElement(
             'div',
@@ -328,7 +360,19 @@ var Search = function (_Component) {
             )
           )
         ),
-        _react2.default.createElement(_results2.default, { results: this.state.results })
+        _react2.default.createElement(_results2.default, {
+          name: 'Video Hub',
+          results: this.state.videoResults.slice(0, 3)
+        }),
+        _react2.default.createElement(_results2.default, {
+          name: 'Posts',
+          results: this.state.results.slice(0, 3)
+        }),
+        _react2.default.createElement(
+          Loading,
+          { className: 'loader' },
+          _react2.default.createElement('img', { src: loadingImg })
+        )
       );
     }
   }]);
@@ -343,7 +387,7 @@ if ($search) {
   (0, _reactDom.render)(_react2.default.createElement(Search, null), $search);
 }
 
-},{"./results":3,"babel-runtime/core-js/object/get-prototype-of":9,"babel-runtime/core-js/promise":11,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":17,"babel-runtime/helpers/possibleConstructorReturn":18,"babel-runtime/regenerator":23,"fuse.js":146,"react":310,"react-dom":158}],3:[function(require,module,exports){
+},{"./results":3,"babel-runtime/core-js/object/get-prototype-of":9,"babel-runtime/core-js/promise":11,"babel-runtime/helpers/asyncToGenerator":14,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":17,"babel-runtime/helpers/possibleConstructorReturn":18,"babel-runtime/helpers/taggedTemplateLiteral":19,"babel-runtime/regenerator":23,"fuse.js":146,"react":310,"react-dom":158,"styled-components":311}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -375,7 +419,8 @@ var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiter
 
 var _taggedTemplateLiteral3 = _interopRequireDefault(_taggedTemplateLiteral2);
 
-var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n'], ['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n']);
+var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n'], ['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n']),
+    _templateObject2 = (0, _taggedTemplateLiteral3.default)(['\n  background-color: #eee;\n  text-align: center;\n  text-transform: uppercase;\n  font-size: 13px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n'], ['\n  background-color: #eee;\n  text-align: center;\n  text-transform: uppercase;\n  font-size: 13px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n']);
 
 var _react = require('react');
 
@@ -393,7 +438,11 @@ var _article2 = _interopRequireDefault(_article);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var loadingImg = 'http://1y2u3hx8yml32svgcf0087imj.wpengine.netdna-cdn.com/wp-content/themes/under-armour/assets/images/site-mfp/load-more-posts.gif';
+
 var List = _styledComponents2.default.div(_templateObject);
+
+var Header = _styledComponents2.default.div(_templateObject2);
 
 var Results = function (_Component) {
   (0, _inherits3.default)(Results, _Component);
@@ -404,18 +453,34 @@ var Results = function (_Component) {
   }
 
   (0, _createClass3.default)(Results, [{
+    key: 'renderResult',
+    value: function renderResult() {
+      if (this.props.results.length !== 0) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            Header,
+            null,
+            this.props.name
+          ),
+          _react2.default.createElement(
+            'ul',
+            null,
+            (this.props.results || []).map(function (x) {
+              return _react2.default.createElement(_article2.default, { article: x, key: x.id });
+            })
+          )
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         List,
         null,
-        _react2.default.createElement(
-          'ul',
-          null,
-          (this.props.results || []).map(function (x) {
-            return _react2.default.createElement(_article2.default, { article: x, key: x.id });
-          })
-        )
+        this.renderResult()
       );
     }
   }]);
