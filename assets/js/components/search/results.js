@@ -22,18 +22,27 @@ const List = styled.div`
     font-size: 13px;
     font-weight: 700;
     font-family: "Armour Bold", helvetica, sans-serif;
+    width: 100%;
+    display: block;
   }
 `
 
-export default ({ results, name }) => (
-  <List>
-    <div>
-      <strong>{name}</strong>
-      <ul>
-        {(results || []).map(x => {
-          return <Article article={x} key={x.id}/>
-        })}
-      </ul>
-    </div>
-  </List>
-)
+export default ({ results, name }) => {
+
+  const renderResult = () => {
+    if (results.length !== 0) {
+      return (
+        <List>
+          <strong>{name}</strong>
+          <ul>
+            {(results || []).map(x => {
+              return <Article article={x} key={x.id}/>
+            })}
+          </ul>
+        </List>
+      )
+    }
+  }
+
+  return <div>{renderResult()}</div>
+}

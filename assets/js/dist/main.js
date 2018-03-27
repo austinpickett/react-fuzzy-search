@@ -37,7 +37,11 @@ var DateWrap = _styledComponents2.default.div(_templateObject5);
 var MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 exports.default = function (_ref) {
-  var date = _ref.article.date;
+  var _ref$article = _ref.article,
+      link = _ref$article.link,
+      date = _ref$article.date,
+      _embedded = _ref$article._embedded,
+      title = _ref$article.title;
 
   var dateObj = new Date(date);
   var month = MONTH_NAMES[dateObj.getMonth()];
@@ -49,24 +53,24 @@ exports.default = function (_ref) {
     null,
     _react2.default.createElement(
       Link,
-      { href: undefined.props.article.link },
+      { href: link },
       _react2.default.createElement(
         PostCover,
         null,
-        _react2.default.createElement('img', { src: undefined.props.article._embedded['wp:featuredmedia'][0].source_url })
+        _react2.default.createElement('img', { src: _embedded['wp:featuredmedia'][0].source_url })
       ),
       _react2.default.createElement(
         PostRight,
         null,
-        _react2.default.createElement(Title, { dangerouslySetInnerHTML: { __html: undefined.props.article.title.rendered } }),
+        _react2.default.createElement(Title, { dangerouslySetInnerHTML: { __html: title.rendered } }),
         _react2.default.createElement(
           DateWrap,
           null,
-          undefined.month,
+          month,
           ' ',
-          undefined.day,
+          day,
           ', ',
-          undefined.year
+          year
         )
       )
     )
@@ -140,7 +144,7 @@ var _results2 = _interopRequireDefault(_results);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var API = 'http://mfpstaging3.wpengine.com/wp-json/wp/v2/';
+var API = location.href + 'wp-json/wp/v2/';
 
 var loadingImg = 'http://1y2u3hx8yml32svgcf0087imj.wpengine.netdna-cdn.com/wp-content/themes/under-armour/assets/images/site-mfp/load-more-posts.gif';
 
@@ -367,7 +371,7 @@ var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiter
 
 var _taggedTemplateLiteral3 = _interopRequireDefault(_taggedTemplateLiteral2);
 
-var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n\n  strong {\n    background-color: #eee;\n    text-align: center;\n    text-transform: uppercase;\n    font-size: 13px;\n    font-weight: 700;\n    font-family: "Armour Bold", helvetica, sans-serif;\n  }\n'], ['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n\n  strong {\n    background-color: #eee;\n    text-align: center;\n    text-transform: uppercase;\n    font-size: 13px;\n    font-weight: 700;\n    font-family: "Armour Bold", helvetica, sans-serif;\n  }\n']);
+var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n\n  strong {\n    background-color: #eee;\n    text-align: center;\n    text-transform: uppercase;\n    font-size: 13px;\n    font-weight: 700;\n    font-family: "Armour Bold", helvetica, sans-serif;\n    width: 100%;\n    display: block;\n  }\n'], ['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n\n  strong {\n    background-color: #eee;\n    text-align: center;\n    text-transform: uppercase;\n    font-size: 13px;\n    font-weight: 700;\n    font-family: "Armour Bold", helvetica, sans-serif;\n    width: 100%;\n    display: block;\n  }\n']);
 
 var _react = require('react');
 
@@ -390,25 +394,33 @@ var List = _styledComponents2.default.div(_templateObject);
 exports.default = function (_ref) {
   var results = _ref.results,
       name = _ref.name;
+
+
+  var renderResult = function renderResult() {
+    if (results.length !== 0) {
+      return _react2.default.createElement(
+        List,
+        null,
+        _react2.default.createElement(
+          'strong',
+          null,
+          name
+        ),
+        _react2.default.createElement(
+          'ul',
+          null,
+          (results || []).map(function (x) {
+            return _react2.default.createElement(_article2.default, { article: x, key: x.id });
+          })
+        )
+      );
+    }
+  };
+
   return _react2.default.createElement(
-    List,
+    'div',
     null,
-    _react2.default.createElement(
-      'div',
-      null,
-      _react2.default.createElement(
-        'strong',
-        null,
-        name
-      ),
-      _react2.default.createElement(
-        'ul',
-        null,
-        (results || []).map(function (x) {
-          return _react2.default.createElement(_article2.default, { article: x, key: x.id });
-        })
-      )
-    )
+    renderResult()
   );
 };
 

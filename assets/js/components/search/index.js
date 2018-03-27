@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Fuse from 'fuse.js'
 import Results from './results'
 
-const API = 'http://mfpstaging3.wpengine.com/wp-json/wp/v2/'
+const API = `${location.href}wp-json/wp/v2/`
 
 const loadingImg = 'http://1y2u3hx8yml32svgcf0087imj.wpengine.netdna-cdn.com/wp-content/themes/under-armour/assets/images/site-mfp/load-more-posts.gif'
 
@@ -73,6 +73,7 @@ export default class Search extends Component {
 
   async fetchPosts(query) {
     const url = `${API+query}&_embed`
+
     return await fetch(url).then(response => {
       if (response.ok) {
         return Promise.resolve(response);

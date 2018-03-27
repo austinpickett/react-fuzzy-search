@@ -57,7 +57,7 @@ const MONTH_NAMES = [
   "July", "August", "September", "October", "November", "December"
 ];
 
-export default ({ article: { date } }) => {
+export default ({ article: { link, date, _embedded, title } }) => {
   const dateObj = new Date(date)
   const month = MONTH_NAMES[dateObj.getMonth()]
   const day = dateObj.getDate()
@@ -65,13 +65,13 @@ export default ({ article: { date } }) => {
 
   return (
     <li>
-      <Link href={this.props.article.link}>
+      <Link href={ link }>
         <PostCover>
-          <img src={this.props.article._embedded['wp:featuredmedia'][0].source_url } />
+          <img src={ _embedded['wp:featuredmedia'][0].source_url } />
         </PostCover>
         <PostRight>
-          <Title dangerouslySetInnerHTML={{ __html: this.props.article.title.rendered }} />
-          <DateWrap>{this.month} {this.day}, {this.year}</DateWrap>
+          <Title dangerouslySetInnerHTML={{ __html: title.rendered }} />
+          <DateWrap>{ month } { day }, { year }</DateWrap>
         </PostRight>
       </Link>
     </li>
