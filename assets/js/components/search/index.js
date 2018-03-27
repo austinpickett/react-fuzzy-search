@@ -111,7 +111,7 @@ export default class Search extends Component {
               type="submit"
               id="searchsubmit"
             >
-              <i className="fa fa-angle-right"></i>
+              <i className="fa fa-angle-right" />
             </button>
           </div>
         </form>
