@@ -7,6 +7,8 @@ import Results from './results'
 
 const API = 'http://mfpstaging3.wpengine.com/wp-json/wp/v2/'
 
+const loadingImg = 'http://1y2u3hx8yml32svgcf0087imj.wpengine.netdna-cdn.com/wp-content/themes/under-armour/assets/images/site-mfp/load-more-posts.gif'
+
 const opts = {
   shouldSort: true,
   threshold: 0.6,
@@ -19,12 +21,18 @@ const opts = {
   ]
 }
 
+const SearchContainer = styled.div`
+  box-shadow: 0 0 25px 5px rgba(0,0,0, .3);
+`
+
 const Loading = styled.div`
   background-color: #0070bf;
   padding: 20px 0;
   align-items: center;
   justify-content: center;
+  display: none;
 `
+
 
 export default class Search extends Component {
   constructor(props) {
@@ -80,7 +88,7 @@ export default class Search extends Component {
 
   render() {
     return (
-      <div id="searchContainer">
+      <SearchContainer id="searchContainer">
         <form
           role="search"
           method="get"
@@ -119,7 +127,7 @@ export default class Search extends Component {
         <Loading className="loader">
           <img src={loadingImg} />
         </Loading>
-      </div>
+      </SearchContainer>
     )
   }
 }

@@ -4,27 +4,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
-
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = require('babel-runtime/helpers/inherits');
-
-var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiteral');
 
@@ -57,59 +36,44 @@ var Title = _styledComponents2.default.div(_templateObject4);
 var DateWrap = _styledComponents2.default.div(_templateObject5);
 var MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-var Article = function (_Component) {
-  (0, _inherits3.default)(Article, _Component);
+exports.default = function (_ref) {
+  var date = _ref.article.date;
 
-  function Article(props) {
-    (0, _classCallCheck3.default)(this, Article);
+  var dateObj = new Date(date);
+  var month = MONTH_NAMES[dateObj.getMonth()];
+  var day = dateObj.getDate();
+  var year = dateObj.getFullYear();
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Article.__proto__ || (0, _getPrototypeOf2.default)(Article)).call(this, props));
-
-    _this.date = new Date(_this.props.article.date);
-    _this.month = MONTH_NAMES[_this.date.getMonth()];
-    _this.day = _this.date.getDate();
-    _this.year = _this.date.getFullYear();
-    return _this;
-  }
-
-  (0, _createClass3.default)(Article, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'li',
+  return _react2.default.createElement(
+    'li',
+    null,
+    _react2.default.createElement(
+      Link,
+      { href: undefined.props.article.link },
+      _react2.default.createElement(
+        PostCover,
         null,
+        _react2.default.createElement('img', { src: undefined.props.article._embedded['wp:featuredmedia'][0].source_url })
+      ),
+      _react2.default.createElement(
+        PostRight,
+        null,
+        _react2.default.createElement(Title, { dangerouslySetInnerHTML: { __html: undefined.props.article.title.rendered } }),
         _react2.default.createElement(
-          Link,
-          { href: this.props.article.link },
-          _react2.default.createElement(
-            PostCover,
-            null,
-            _react2.default.createElement('img', { src: this.props.article._embedded['wp:featuredmedia'][0].source_url })
-          ),
-          _react2.default.createElement(
-            PostRight,
-            null,
-            _react2.default.createElement(Title, { dangerouslySetInnerHTML: { __html: this.props.article.title.rendered } }),
-            _react2.default.createElement(
-              DateWrap,
-              null,
-              this.month,
-              ' ',
-              this.day,
-              ', ',
-              this.year
-            )
-          )
+          DateWrap,
+          null,
+          undefined.month,
+          ' ',
+          undefined.day,
+          ', ',
+          undefined.year
         )
-      );
-    }
-  }]);
-  return Article;
-}(_react.Component);
+      )
+    )
+  );
+};
 
-exports.default = Article;
-
-},{"babel-runtime/core-js/object/get-prototype-of":9,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":17,"babel-runtime/helpers/possibleConstructorReturn":18,"babel-runtime/helpers/taggedTemplateLiteral":19,"react":310,"react-dom":158,"styled-components":311}],2:[function(require,module,exports){
+},{"babel-runtime/helpers/taggedTemplateLiteral":19,"react":310,"react-dom":158,"styled-components":311}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -153,7 +117,8 @@ var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiter
 
 var _taggedTemplateLiteral3 = _interopRequireDefault(_taggedTemplateLiteral2);
 
-var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  background-color: #0070bf;\n  padding: 20px 0;\n  align-items: center;\n  justify-content: center;\n'], ['\n  background-color: #0070bf;\n  padding: 20px 0;\n  align-items: center;\n  justify-content: center;\n']);
+var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  box-shadow: 0 0 25px 5px rgba(0,0,0, .3);\n'], ['\n  box-shadow: 0 0 25px 5px rgba(0,0,0, .3);\n']),
+    _templateObject2 = (0, _taggedTemplateLiteral3.default)(['\n  background-color: #0070bf;\n  padding: 20px 0;\n  align-items: center;\n  justify-content: center;\n  display: none;\n'], ['\n  background-color: #0070bf;\n  padding: 20px 0;\n  align-items: center;\n  justify-content: center;\n  display: none;\n']);
 
 var _react = require('react');
 
@@ -177,6 +142,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var API = 'http://mfpstaging3.wpengine.com/wp-json/wp/v2/';
 
+var loadingImg = 'http://1y2u3hx8yml32svgcf0087imj.wpengine.netdna-cdn.com/wp-content/themes/under-armour/assets/images/site-mfp/load-more-posts.gif';
+
 var opts = {
   shouldSort: true,
   threshold: 0.6,
@@ -187,7 +154,9 @@ var opts = {
   keys: ["title.rendered"]
 };
 
-var Loading = _styledComponents2.default.div(_templateObject);
+var SearchContainer = _styledComponents2.default.div(_templateObject);
+
+var Loading = _styledComponents2.default.div(_templateObject2);
 
 var Search = function (_Component) {
   (0, _inherits3.default)(Search, _Component);
@@ -327,7 +296,7 @@ var Search = function (_Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        SearchContainer,
         { id: 'searchContainer' },
         _react2.default.createElement(
           'form',
@@ -393,34 +362,12 @@ if ($search) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
-
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = require('babel-runtime/helpers/inherits');
-
-var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiteral');
 
 var _taggedTemplateLiteral3 = _interopRequireDefault(_taggedTemplateLiteral2);
 
-var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n'], ['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n']),
-    _templateObject2 = (0, _taggedTemplateLiteral3.default)(['\n  background-color: #eee;\n  text-align: center;\n  text-transform: uppercase;\n  font-size: 13px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n'], ['\n  background-color: #eee;\n  text-align: center;\n  text-transform: uppercase;\n  font-size: 13px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n']);
+var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n\n  strong {\n    background-color: #eee;\n    text-align: center;\n    text-transform: uppercase;\n    font-size: 13px;\n    font-weight: 700;\n    font-family: "Armour Bold", helvetica, sans-serif;\n  }\n'], ['\n  z-index: 9999;\n  background-color: #FFF;\n\n  ul {\n    overflow-y: auto;\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    max-height: 250px;\n  }\n\n  strong {\n    background-color: #eee;\n    text-align: center;\n    text-transform: uppercase;\n    font-size: 13px;\n    font-weight: 700;\n    font-family: "Armour Bold", helvetica, sans-serif;\n  }\n']);
 
 var _react = require('react');
 
@@ -438,58 +385,34 @@ var _article2 = _interopRequireDefault(_article);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var loadingImg = 'http://1y2u3hx8yml32svgcf0087imj.wpengine.netdna-cdn.com/wp-content/themes/under-armour/assets/images/site-mfp/load-more-posts.gif';
-
 var List = _styledComponents2.default.div(_templateObject);
 
-var Header = _styledComponents2.default.div(_templateObject2);
-
-var Results = function (_Component) {
-  (0, _inherits3.default)(Results, _Component);
-
-  function Results(props) {
-    (0, _classCallCheck3.default)(this, Results);
-    return (0, _possibleConstructorReturn3.default)(this, (Results.__proto__ || (0, _getPrototypeOf2.default)(Results)).call(this, props));
-  }
-
-  (0, _createClass3.default)(Results, [{
-    key: 'renderResult',
-    value: function renderResult() {
-      if (this.props.results.length !== 0) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            Header,
-            null,
-            this.props.name
-          ),
-          _react2.default.createElement(
-            'ul',
-            null,
-            (this.props.results || []).map(function (x) {
-              return _react2.default.createElement(_article2.default, { article: x, key: x.id });
-            })
-          )
-        );
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        List,
+exports.default = function (_ref) {
+  var results = _ref.results,
+      name = _ref.name;
+  return _react2.default.createElement(
+    List,
+    null,
+    _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement(
+        'strong',
         null,
-        this.renderResult()
-      );
-    }
-  }]);
-  return Results;
-}(_react.Component);
+        name
+      ),
+      _react2.default.createElement(
+        'ul',
+        null,
+        (results || []).map(function (x) {
+          return _react2.default.createElement(_article2.default, { article: x, key: x.id });
+        })
+      )
+    )
+  );
+};
 
-exports.default = Results;
-
-},{"./article":1,"babel-runtime/core-js/object/get-prototype-of":9,"babel-runtime/helpers/classCallCheck":15,"babel-runtime/helpers/createClass":16,"babel-runtime/helpers/inherits":17,"babel-runtime/helpers/possibleConstructorReturn":18,"babel-runtime/helpers/taggedTemplateLiteral":19,"react":310,"react-dom":158,"styled-components":311}],4:[function(require,module,exports){
+},{"./article":1,"babel-runtime/helpers/taggedTemplateLiteral":19,"react":310,"react-dom":158,"styled-components":311}],4:[function(require,module,exports){
 'use strict';
 
 var _search = require('./components/search');

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { render } from 'react-dom'
 import styled from 'styled-components'
 
@@ -57,29 +57,23 @@ const MONTH_NAMES = [
   "July", "August", "September", "October", "November", "December"
 ];
 
-export default class Article extends Component {
-  constructor(props) {
-    super(props)
+export default ({ article: { date } }) => {
+  const dateObj = new Date(date)
+  const month = MONTH_NAMES[dateObj.getMonth()]
+  const day = dateObj.getDate()
+  const year = dateObj.getFullYear()
 
-    this.date = new Date(this.props.article.date)
-    this.month = MONTH_NAMES[this.date.getMonth()]
-    this.day = this.date.getDate()
-    this.year = this.date.getFullYear()
-  }
-
-  render() {
-    return(
-      <li>
-        <Link href={this.props.article.link}>
-          <PostCover>
-            <img src={this.props.article._embedded['wp:featuredmedia'][0].source_url } />
-          </PostCover>
-          <PostRight>
-            <Title dangerouslySetInnerHTML={{ __html: this.props.article.title.rendered }} />
-            <DateWrap>{this.month} {this.day}, {this.year}</DateWrap>
-          </PostRight>
-        </Link>
-      </li>
-    )
-  }
+  return (
+    <li>
+      <Link href={this.props.article.link}>
+        <PostCover>
+          <img src={this.props.article._embedded['wp:featuredmedia'][0].source_url } />
+        </PostCover>
+        <PostRight>
+          <Title dangerouslySetInnerHTML={{ __html: this.props.article.title.rendered }} />
+          <DateWrap>{this.month} {this.day}, {this.year}</DateWrap>
+        </PostRight>
+      </Link>
+    </li>
+  )
 }
