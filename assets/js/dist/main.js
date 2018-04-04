@@ -10,7 +10,7 @@ var _taggedTemplateLiteral2 = require('babel-runtime/helpers/taggedTemplateLiter
 var _taggedTemplateLiteral3 = _interopRequireDefault(_taggedTemplateLiteral2);
 
 var _templateObject = (0, _taggedTemplateLiteral3.default)(['\n  display: flex;\n  width: 100%;\n  align-items: center;\n\n  &:hover {\n    background-color: #0070bf;\n    color: #FFF;\n\n    div {\n      color: #FFF;\n    }\n  }\n'], ['\n  display: flex;\n  width: 100%;\n  align-items: center;\n\n  &:hover {\n    background-color: #0070bf;\n    color: #FFF;\n\n    div {\n      color: #FFF;\n    }\n  }\n']),
-    _templateObject2 = (0, _taggedTemplateLiteral3.default)(['\n    display: block;\n    width: 80px !important;\n    height: 80px !important;\n    position: relative;\n\n    img {\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      width: 100% !important;\n      height: 100% !important;\n    }\n'], ['\n    display: block;\n    width: 80px !important;\n    height: 80px !important;\n    position: relative;\n\n    img {\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      width: 100% !important;\n      height: 100% !important;\n    }\n']),
+    _templateObject2 = (0, _taggedTemplateLiteral3.default)(['\n    display: block;\n    width: 80px !important;\n    height: 80px !important;\n    position: relative;\n\n    img {\n      object-fit: cover;\n      width: 100% !important;\n      height: 100% !important;\n    }\n'], ['\n    display: block;\n    width: 80px !important;\n    height: 80px !important;\n    position: relative;\n\n    img {\n      object-fit: cover;\n      width: 100% !important;\n      height: 100% !important;\n    }\n']),
     _templateObject3 = (0, _taggedTemplateLiteral3.default)(['\n  padding: 0 20px;\n  width: 80%;\n'], ['\n  padding: 0 20px;\n  width: 80%;\n']),
     _templateObject4 = (0, _taggedTemplateLiteral3.default)(['\n  font-size: 16px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n  text-transform: uppercase;\n  color: #000;\n  margin: 0 0 3px 0;\n'], ['\n  font-size: 16px;\n  font-weight: 700;\n  font-family: "Armour Bold", helvetica, sans-serif;\n  text-transform: uppercase;\n  color: #000;\n  margin: 0 0 3px 0;\n']),
     _templateObject5 = (0, _taggedTemplateLiteral3.default)(['\n  text-transform: uppercase;\n  color: #acacac;\n  font-size: 11px;\n  margin: 0;\n'], ['\n  text-transform: uppercase;\n  color: #acacac;\n  font-size: 11px;\n  margin: 0;\n']);
@@ -57,7 +57,7 @@ exports.default = function (_ref) {
       _react2.default.createElement(
         PostCover,
         null,
-        _react2.default.createElement('img', { src: _embedded['wp:featuredmedia'][0].source_url })
+        _react2.default.createElement('img', { src: _embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url })
       ),
       _react2.default.createElement(
         PostRight,
@@ -398,6 +398,7 @@ exports.default = function (_ref) {
 
   var renderResult = function renderResult() {
     if (results.length !== 0) {
+      console.log(results);
       return _react2.default.createElement(
         List,
         null,

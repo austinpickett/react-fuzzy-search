@@ -24,11 +24,7 @@ const PostCover = styled.div`
     position: relative;
 
     img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      object-fit: cover;
       width: 100% !important;
       height: 100% !important;
     }
@@ -67,7 +63,7 @@ export default ({ article: { link, date, _embedded, title } }) => {
     <li>
       <Link href={ link }>
         <PostCover>
-          <img src={ _embedded['wp:featuredmedia'][0].source_url } />
+          <img src={ _embedded['wp:featuredmedia'][0].media_details.sizes.thumbnail.source_url } />
         </PostCover>
         <PostRight>
           <Title dangerouslySetInnerHTML={{ __html: title.rendered }} />

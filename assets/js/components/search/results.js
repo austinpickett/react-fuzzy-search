@@ -31,6 +31,7 @@ export default ({ results, name }) => {
 
   const renderResult = () => {
     if (results.length !== 0) {
+      console.log(results)
       return (
         <List>
           <strong>{name}</strong>
